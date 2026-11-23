@@ -72,7 +72,8 @@ pipeline = Pipeline([
 ])
 
 pipeline.fit(X_train, y_train)        # X_train : un DataFrame de données brutes
-pipeline.predict(X_nouveau)
+pipeline.predict(X_nouveau)         #X_test = le set de test à évaluer  ou 
+pipeline.predict(X_test)            # prédictions sur le jeu de test
 ```
 
 Pour voir ce que la préparation produit : `pipeline[:-1].fit_transform(X_train)` (tout sauf le modèle) et `pipeline[:-1].get_feature_names_out()`.

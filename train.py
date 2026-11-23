@@ -32,11 +32,18 @@ def load_data(engine) -> pd.DataFrame:
     raise NotImplementedError
 
 
+
+
+# 1. Fonction pour séparer les derniers mois d'arrivée du reste du reste du jeu de données
+def split_by_last_months(df: pd.DataFrame, months: int) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Sépare les months derniers mois d'arrivée du reste."""
+    cutoff = df["arrival_date"].max() - pd.DateOffset(months=months)
+    return df[df["arrival_date"] <= cutoff], df[df["arrival_date"] > cutoff]
+
+# 2. Fonction pour séparer le jeu de données en train et test selon les derniers mois d'arrivée
 def split_train_test(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
-    """
-    TODO
-    """
-    raise NotImplementedError
+    """Met de côté les TEST_MONTHS derniers mois d'arrivée comme jeu de test."""
+    return split_by_last_months(df, TEST_MONTHS)
 
 
 def build_pipeline() -> Pipeline:
